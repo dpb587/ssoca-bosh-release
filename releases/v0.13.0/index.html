@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>
+    v0.13.0 | ssoca-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/ssoca-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      ssoca-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/ssoca-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/ssoca-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/ssoca-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    
+      
+      
+        <ul>
+          <li><a href="/ssoca-bosh-release/releases/"><i class="fas fa-angle-double-left"></i> Back to Latest Releases</a></li>
+        </ul>
+      
+      
+
+
+
+<p class="menu-label">Previous Release (v0.13.0)</p>
+<ul class="menu-list">
+  
+  <li><a class="is-active" href="/ssoca-bosh-release/releases/v0.13.0/">Overview</a></li>
+  
+    <li><a href="/ssoca-bosh-release/jobs/ssoca/v0.13.0/">ssoca</a></li>
+  
+    <li><a href="/ssoca-bosh-release/jobs/ssoca-openvpn-verify/v0.13.0/">ssoca-openvpn-verify</a></li>
+  
+</ul>
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+      
+      
+    
+  
+
+  
+    
+    
+    
+      
+    
+
+    <div class="is-size-5 is-pulled-right">
+      <a href="https://github.com/dpb587/ssoca-bosh-release/blob/master/releases/ssoca/ssoca-0.13.0.md" rel="noopener" target="_blank" title="Contribute changes to this page" style="opacity:0.7">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+    </div>
+  
+
+<article class="content">
+        
+  <article class="message is-warning">
+    <div class="message-body">
+      This document is describing an outdated version (v0.13.0). Please consider switching to the latest version (<a href="/ssoca-bosh-release/releases/v0.19.0/">v0.19.0</a>).
+    </div>
+  </article>
+
+
+
+        <h1 id="overview">ssoca/0.13.0</h1>
+
+        
+          <p>Released <time datetime="2018-12-18T06:25:36-08:00" title="2018-12-18T06:25:36-08:00">December 18, 2018</time></p>
+        
+
+        
+          <h2 id="notes">Release Notes</h2><p>Upgrades</p>
+
+<ul>
+<li>ssoca 0.13.0 (<a href="https://github.com/dpb587/ssoca/releases/tag/v0.13.0">changelog</a>; was 0.12.0)</li>
+</ul>
+
+
+        <h2 id="usage">Usage</h2>
+
+        
+
+
+  
+  
+
+
+
+
+
+
+
+<p>Upload the release tarball from the command line:</p>
+
+<pre><code>bosh upload-release --name="ssoca" --version="0.19.0" \
+  "<a href="https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/0.19.0/ssoca-0.19.0.tgz">https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/0.19.0/ssoca-0.19.0.tgz</a>" \
+  --sha1="sha256:3b171fb2709b3f796ed61d47050f5a83e7feb7ba62daa960e0f17be2f111adcb"</code></pre>
+
+<p>Or reference the release from a manifest:</p>
+
+<pre><code>releases:
+- name: "ssoca"
+  version: "0.19.0"
+  url: "<a href="https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/0.19.0/ssoca-0.19.0.tgz">https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/0.19.0/ssoca-0.19.0.tgz</a>"
+  sha1: "sha256:3b171fb2709b3f796ed61d47050f5a83e7feb7ba62daa960e0f17be2f111adcb"</code></pre>
+
+
+
+        <h2 id="jobs">Jobs</h2>
+
+        
+          <h3 id="ssoca"><a href="https://dpb587.github.io/ssoca-bosh-release/jobs/ssoca/v0.13.0/">ssoca</a></h3>
+          
+        
+          <h3 id="ssoca-openvpn-verify"><a href="https://dpb587.github.io/ssoca-bosh-release/jobs/ssoca-openvpn-verify/v0.13.0/">ssoca-openvpn-verify</a></h3>
+          
+        
+
+        <h2 id="packages">Packages</h2>
+
+        
+          <h3 id="golang-1-8-linux"><a href="https://dpb587.github.io/ssoca-bosh-release/packages/golang-1.8-linux/v0.13.0/">golang-1.8-linux</a></h3>
+          
+        
+          <h3 id="ssoca"><a href="https://dpb587.github.io/ssoca-bosh-release/packages/ssoca/v0.13.0/">ssoca</a></h3>
+          
+        
+          <h3 id="ssoca-clients"><a href="https://dpb587.github.io/ssoca-bosh-release/packages/ssoca-clients/v0.13.0/">ssoca-clients</a></h3>
+          
+        
+          <h3 id="ssoca-openvpn-verify"><a href="https://dpb587.github.io/ssoca-bosh-release/packages/ssoca-openvpn-verify/v0.13.0/">ssoca-openvpn-verify</a></h3>
+          
+        
+          <h3 id="ssoca-version"><a href="https://dpb587.github.io/ssoca-bosh-release/packages/ssoca-version/v0.13.0/">ssoca-version</a></h3>
+          
+        
+
+        <h2 id="spec">Source</h2>
+
+        
+        <p>
+          Based on <code>releases/ssoca/ssoca-0.13.0.yml</code>
+          (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/master/releases/ssoca/ssoca-0.13.0.yml">source</a>).
+        </p>
+      </article>
+    </div>
+    
+      <div class="column table-of-contents is-hidden-mobile">
+        <div class="content is-size-7">
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#overview">ssoca/0.13.0</a>
+                <ul>
+                  
+                    <li><a href="#notes">Release Notes</a></li>
+                  
+                  
+                  <li><a href="#usage">Usage</a></li>
+                  <li>
+                    <a href="#jobs">Jobs</a>
+                    <ul>
+                      
+                        <li><a href="#ssoca">ssoca</a></li>
+                      
+                        <li><a href="#ssoca-openvpn-verify">ssoca-openvpn-verify</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#packages">Packages</a>
+                    <ul>
+                      
+                        <li><a href="#golang-1-8-linux">golang-1.8-linux</a></li>
+                      
+                        <li><a href="#ssoca">ssoca</a></li>
+                      
+                        <li><a href="#ssoca-clients">ssoca-clients</a></li>
+                      
+                        <li><a href="#ssoca-openvpn-verify">ssoca-openvpn-verify</a></li>
+                      
+                        <li><a href="#ssoca-version">ssoca-version</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a href="#spec">Source</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/ssoca-bosh-release">ssoca BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

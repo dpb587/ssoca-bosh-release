@@ -1,0 +1,10 @@
+---
+name: ssoca-clients
+dependencies:
+- go
+- ssoca-version
+files:
+- ssoca/**/*
+- ssoca/*
+- ssoca-clients/*
+

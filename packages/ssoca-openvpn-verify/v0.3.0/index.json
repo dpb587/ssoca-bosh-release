@@ -1,0 +1,1 @@
+{"dependencies":["ssoca-golang"],"files":["ssoca-openvpn-verify.go","golang/*"],"name":"ssoca-openvpn-verify"}

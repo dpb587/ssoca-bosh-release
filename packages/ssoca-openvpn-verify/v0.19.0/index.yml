@@ -1,0 +1,7 @@
+---
+name: ssoca-openvpn-verify
+dependencies:
+- go
+files:
+- ssoca-openvpn-verify.go
+

@@ -1,0 +1,1 @@
+{"name":"ssoca-openvpn-verify","packages":["ssoca-openvpn-verify"],"properties":{},"templates":{"bin/pre-start":"bin/pre-start"}}

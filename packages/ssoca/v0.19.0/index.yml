@@ -1,0 +1,9 @@
+---
+name: ssoca
+dependencies:
+- go
+- ssoca-version
+files:
+- ssoca/**/*
+- ssoca/*
+

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ssoca | ssoca-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/ssoca-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      ssoca-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/ssoca-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/ssoca-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/ssoca-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    
+      
+      
+        <ul>
+          <li><a href="/ssoca-bosh-release/releases/"><i class="fas fa-angle-double-left"></i> Back to Latest Releases</a></li>
+        </ul>
+      
+      
+
+
+
+<p class="menu-label">Previous Release (v0.15.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/ssoca-bosh-release/releases/v0.15.0/">Overview</a></li>
+  
+    <li><a class="is-active" href="/ssoca-bosh-release/jobs/ssoca/v0.15.0/">ssoca</a></li>
+  
+    <li><a href="/ssoca-bosh-release/jobs/ssoca-openvpn-verify/v0.15.0/">ssoca-openvpn-verify</a></li>
+  
+</ul>
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+  
+
+  
+
+<article class="content">
+        
+  <article class="message is-warning">
+    <div class="message-body">
+      This document is describing an outdated version (v0.15.0). Please consider switching to the latest version (<a href="/ssoca-bosh-release/releases/v0.19.0/">v0.19.0</a>).
+    </div>
+  </article>
+
+
+
+        <h1 id="overview"><code>ssoca</code> job</h1>
+
+        
+
+        <h2 id="usage">Usage</h2>
+
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">releases:
+- name: <span style="color:#e6db74">&#34;ssoca&#34;</span>
+  version: <span style="color:#e6db74">&#34;0.15.0&#34;</span>
+instance_groups:
+- name: <span style="color:#e6db74">&#34;ssoca&#34;</span>
+  jobs:
+  - name: <span style="color:#e6db74">&#34;ssoca&#34;</span>
+    release: <span style="color:#e6db74">&#34;ssoca&#34;</span>
+    properties: {}</code></pre></div>
+
+        
+          
+            <h2 id="properties">Properties</h2>
+
+            <p>The following properties can be configured for the job.</p>
+
+            
+              <h3 id="property-auth-options">auth.options</h3>
+
+              
+                <div class="content">A hash of method-specific authentication options. This often includes Client ID/Secrets and endpoints.</div>
+              
+
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">client_id: a1b2c3d4e5f6
+client_secret: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-auth-type">auth.type</h3>
+
+              
+                <div class="content">The authentication method to use (github, google, http, uaa)</div>
+              
+
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">github
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-certauths">certauths</h3>
+
+              
+                <div class="content">An array of certificate authorities and their configurations.</div>
+              
+
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- options:
+    certificate: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      -----BEGIN CERTIFICATE-----
+</span><span style="color:#e6db74">      MIIDHjCCAgagAwIBAgIRALdnV+vn5/gr4KTP1vyYCjAwDQYJKoZIhvcNAQELBQAw
+</span><span style="color:#e6db74">      ...snip...
+</span><span style="color:#e6db74">      -----END CERTIFICATE-----</span>
+    private_key: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      -----BEGIN RSA PRIVATE KEY-----
+</span><span style="color:#e6db74">      MIIEogIBAAKCAQEAv7H0Ed7PnPpU4rrT7b83TlEzV6fdxDHLEh7pSX1xQPfNeSsy
+</span><span style="color:#e6db74">      ...snip...
+</span><span style="color:#e6db74">      -----END RSA PRIVATE KEY-----</span>
+  type: memory
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-enable-client-downloads">enable_client_downloads</h3>
+
+              
+                <div class="content">True to publish file downloads of the client binaries.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">true</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-enable-ui">enable_ui</h3>
+
+              
+                <div class="content">True to enable a simple browser landing page for users.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">true</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-env-banner">env.banner</h3>
+
+              
+                <div class="content">A banner message or notice that users may find useful.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-env-metadata">env.metadata</h3>
+
+              
+                <div class="content">A simple hash of string key-value pairs which is opaque to the server.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">{}
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-env-name">env.name</h3>
+
+              
+                <div class="content">A recommended environment name that users may find useful.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">ssoca
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-env-title">env.title</h3>
+
+              
+                <div class="content">A friendly human environment name that users may find useful.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">ssoca
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-env-url">env.url</h3>
+
+              
+                <div class="content">The externally accessible URL for this service.</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-openvpn-service-link-options-certauth">openvpn_service_link.options.certauth</h3>
+
+              
+                <div class="content">The certificate authority used for signing by the openvpn service (only applies when using the openvpn link)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">default
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-openvpn-service-link-options-validity">openvpn_service_link.options.validity</h3>
+
+              
+                <div class="content">The validity of certificates signed by the openvpn service (only applies when using the openvpn link)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">12h
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-openvpn-service-link-require">openvpn_service_link.require</h3>
+
+              
+                <div class="content">An array of authentication requirements for the openvpn service (only applies when using the openvpn link)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- authenticated: <span style="color:#66d9ef">null</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server-certificate">server.certificate</h3>
+
+              
+                <div class="content">A PEM-formatted certificate for the server.</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-server-host">server.host</h3>
+
+              
+                <div class="content">The bind address for the listening server</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">0.0</span>.<span style="color:#ae81ff">0.0</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server-port">server.port</h3>
+
+              
+                <div class="content">The bind port for the listening server</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">18705</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server-private-key">server.private_key</h3>
+
+              
+                <div class="content">A PEM-formatted private key for the server.</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-server-redirect-auth-failure">server.redirect.auth_failure</h3>
+
+              
+                <div class="content">A redirect URL for users who have just failed to authenticate.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server-redirect-auth-success">server.redirect.auth_success</h3>
+
+              
+                <div class="content">A redirect URL for users who have just authenticated successfully.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server-redirect-root">server.redirect.root</h3>
+
+              
+                <div class="content">A redirect URL for users directly accessing the server root.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server-robotstxt">server.robotstxt</h3>
+
+              
+                <div class="content">A custom robots.txt document for the server to provide.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">null</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#e6db74">|
+</span><span style="color:#e6db74">  User-agent: *
+</span><span style="color:#e6db74">  Disallow:</span>
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-server-trusted-proxies">server.trusted_proxies</h3>
+
+              
+                <div class="content">A list of proxy IPs or CIDRs to trust when detecting remote client IPs.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">127.0</span>.<span style="color:#ae81ff">0.1</span>/<span style="color:#ae81ff">8</span>
+- ::<span style="color:#ae81ff">1</span>
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-services">services</h3>
+
+              
+                <div class="content">An array of signing services and their configurations.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- options:
+    target:
+      host: <span style="color:#ae81ff">192.0</span>.<span style="color:#ae81ff">2.1</span>
+      user: vcap
+  require:
+  - remote_ip:
+      within: <span style="color:#ae81ff">192.0</span>.<span style="color:#ae81ff">2.0</span>/<span style="color:#ae81ff">24</span>
+  - scope:
+      present: example/admin
+  type: ssh
+</code></pre></div></div>
+                </div>
+              
+            
+          
+
+
+          
+            <h2 id="consumes">Consumed Links</h2>
+
+            <p>The job consumes the following links.</p>
+
+            
+              <h3 id="consumes-openvpn">openvpn (<code>openvpn</code>)</h3>
+
+              
+            
+          
+
+          
+
+          <h2 id="runtime">Runtime</h2>
+
+          
+            <h3 id="templates">Templates</h3>
+
+            <p>The following templates are rendered and installed in <code>/var/vcap/jobs/ssoca</code>.</p>
+
+            <ul>
+              
+                <li><code>bin/exec</code> (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/templates/bin/exec">source</a>)</li>
+              
+                <li><code>bin/pre-start</code> (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/templates/bin/pre-start">source</a>)</li>
+              
+                <li><code>config/bpm.yml</code> (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/templates/config/bpm.yml">source</a>)</li>
+              
+                <li><code>etc/server.conf</code> (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/templates/etc/server.conf.erb">source</a>)</li>
+              
+                <li><code>etc/server.crt</code> (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/templates/etc/server.crt.erb">source</a>)</li>
+              
+                <li><code>etc/server.key</code> (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/templates/etc/server.key.erb">source</a>)</li>
+              
+            </ul>
+          
+
+          
+            <h3 id="packages">Packages</h3>
+
+            <p>The job depends on the following packages installed in <code>/var/vcap/packages</code>.</p>
+
+            <ul>
+              
+                <li><a href="/ssoca-bosh-release/packages/ssoca/v0.15.0/"><code>ssoca</code></a></li>
+              
+                <li><a href="/ssoca-bosh-release/packages/ssoca-clients/v0.15.0/"><code>ssoca-clients</code></a></li>
+              
+            </ul>
+          
+
+          <h2 id="spec">Source</h2>
+
+          <p>
+            Based on <code>jobs/ssoca/spec</code>
+            (<a href="https://github.com/dpb587/ssoca-bosh-release/blob/v0.15.0/jobs/ssoca/spec">source</a>,
+              <a href="https://dpb587.github.io/ssoca-bosh-release/jobs/ssoca/v0.15.0/index.yml">YAML</a>,
+              <a href="https://dpb587.github.io/ssoca-bosh-release/jobs/ssoca/v0.15.0/index.json">JSON</a>).
+          </p>
+        
+      </article>
+    </div>
+    
+      <div class="column table-of-contents is-hidden-mobile">
+        <div class="content is-size-7">
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#overview"><code>ssoca</code> job</a>
+                <ul>
+                  <li><a href="#usage">Usage</a></li>
+                  
+                    
+                      <li>
+                        <a href="#properties">Properties</a>
+                        <ul>
+                          
+                            <li><a href="#property-auth-options">auth.options</a></li>
+                          
+                            <li><a href="#property-auth-type">auth.type</a></li>
+                          
+                            <li><a href="#property-certauths">certauths</a></li>
+                          
+                            <li><a href="#property-enable-client-downloads">enable_client_downloads</a></li>
+                          
+                            <li><a href="#property-enable-ui">enable_ui</a></li>
+                          
+                            <li><a href="#property-env-banner">env.banner</a></li>
+                          
+                            <li><a href="#property-env-metadata">env.metadata</a></li>
+                          
+                            <li><a href="#property-env-name">env.name</a></li>
+                          
+                            <li><a href="#property-env-title">env.title</a></li>
+                          
+                            <li><a href="#property-env-url">env.url</a></li>
+                          
+                            <li><a href="#property-openvpn-service-link-options-certauth">openvpn_service_link.options.certauth</a></li>
+                          
+                            <li><a href="#property-openvpn-service-link-options-validity">openvpn_service_link.options.validity</a></li>
+                          
+                            <li><a href="#property-openvpn-service-link-require">openvpn_service_link.require</a></li>
+                          
+                            <li><a href="#property-server-certificate">server.certificate</a></li>
+                          
+                            <li><a href="#property-server-host">server.host</a></li>
+                          
+                            <li><a href="#property-server-port">server.port</a></li>
+                          
+                            <li><a href="#property-server-private-key">server.private_key</a></li>
+                          
+                            <li><a href="#property-server-redirect-auth-failure">server.redirect.auth_failure</a></li>
+                          
+                            <li><a href="#property-server-redirect-auth-success">server.redirect.auth_success</a></li>
+                          
+                            <li><a href="#property-server-redirect-root">server.redirect.root</a></li>
+                          
+                            <li><a href="#property-server-robotstxt">server.robotstxt</a></li>
+                          
+                            <li><a href="#property-server-trusted-proxies">server.trusted_proxies</a></li>
+                          
+                            <li><a href="#property-services">services</a></li>
+                          
+                        </ul>
+                      </li>
+                    
+                    
+                      <li>
+                        <a href="#consumes">Consumed Links</a>
+                        <ul>
+                          
+                            <li><a href="#consumes-openvpn">openvpn (<code>openvpn</code>)</a></li>
+                          
+                        </ul>
+                      </li>
+                    
+                    
+                    <li>
+                      <a href="#runtime">Runtime</a>
+                      <ul>
+                        
+                          <li><a href="#templates">Templates</a></li>
+                        
+                        
+                          <li><a href="#packages">Packages</a></li>
+                        
+                      </ul>
+                    </li>
+                    <li><a href="#spec">Source</a></li>
+                  
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/ssoca-bosh-release">ssoca BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>
