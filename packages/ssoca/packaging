@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -eu
+
+( cd golang
+  tar -xzf *.tar.gz --strip-components=1
+)
+
+export GOROOT="$PWD/golang"
+export PATH="$GOROOT/bin:$PATH"
+export GOPATH="$PWD/gopath"
+
+mkdir -p gopath/src/github.com/dpb587
+mv ssoca gopath/src/github.com/dpb587/ssoca
+cd gopath/src/github.com/dpb587/ssoca
+
+bin/build "$( grep -A1 Version service/env/service.go | tail -n1 | awk '{ print $2 }' | tr -d '"' )"
+
+# only keep the linux-amd64 server binary
+ls tmp/ssoca-server-* | grep -v linux-amd64 | xargs rm
+mv tmp/ssoca-server-* tmp/ssoca-server
+
+# save the binaries
+mkdir $BOSH_INSTALL_TARGET/bin
+mv tmp/* $BOSH_INSTALL_TARGET/bin
+
+# save the ui
+cp -r server/ui $BOSH_INSTALL_TARGET/ui

@@ -1,0 +1,66 @@
+<%=
+
+config = {
+  'env' => {
+    'banner' => p('env.banner'),
+    'name' => p('env.name'),
+    'title' => p('env.title'),
+    'url' => p('env.url'),
+    'metadata' => p('env.metadata'),
+  },
+  'server' => {
+    'certificate_path' => '/var/vcap/jobs/ssoca/etc/server.crt',
+    'private_key_path' => '/var/vcap/jobs/ssoca/etc/server.key',
+    'redirect' => {
+      'root' => p('server.redirect.root'),
+      'auth_failure' => p('server.redirect.auth_failure'),
+      'auth_success' => p('server.redirect.auth_success'),
+    },
+  },
+  'auth' => {
+    'type' => p('auth.type'),
+    'options' => p('auth.options'),
+  },
+  'certauths' => p('certauths'),
+  'services' => p('services'),
+}
+
+if p('enable_ui')
+  config['services'].push({
+    'name' => 'ui',
+    'type' => 'docroot',
+    'options' => {
+      'path' => '/var/vcap/packages/ssoca/ui',
+    },
+  })
+
+  if config['server']['redirect']['root'] == ''
+    config['server']['redirect']['root'] = '/ui/'
+  end
+
+  if config['server']['redirect']['auth_success'] == ''
+    config['server']['redirect']['auth_success'] = '/ui/auth-success.html'
+  end
+
+  if config['server']['redirect']['auth_failure'] == ''
+    config['server']['redirect']['auth_failure'] = '/ui/auth-failure.html'
+  end
+end
+
+if p('enable_client_downloads')
+  config['services'].push({
+    'name' => 'download',
+    'type' => 'download',
+    'options' => {
+      'glob' => '/var/vcap/packages/ssoca/bin/ssoca-client-*',
+    },
+  })
+
+  if p('enable_ui')
+    config['env']['metadata']['ui.download'] = 'download'
+  end
+end
+
+JSON.dump(config)
+
+%>

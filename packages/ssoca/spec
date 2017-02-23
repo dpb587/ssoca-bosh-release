@@ -1,0 +1,6 @@
+---
+name: ssoca
+files:
+- golang/*
+- ssoca/**/*
+- ssoca/*

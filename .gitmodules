@@ -1,0 +1,3 @@
+[submodule "src/ssoca"]
+	path = src/ssoca
+	url = https://github.com/dpb587/ssoca.git
