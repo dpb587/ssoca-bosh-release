@@ -9,6 +9,8 @@ config = {
     'metadata' => p('env.metadata'),
   },
   'server' => {
+    'host' => p('server.host'),
+    'port' => p('server.port'),
     'certificate_path' => '/var/vcap/jobs/ssoca/etc/server.crt',
     'private_key_path' => '/var/vcap/jobs/ssoca/etc/server.key',
     'redirect' => {

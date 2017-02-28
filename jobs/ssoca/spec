@@ -21,6 +21,12 @@ properties:
   env.metadata:
     default: {}
     description: "A simple hash of string key-value pairs which is opaque to the server."
+  server.host:
+    default: 0.0.0.0
+    description: "The bind address for the listening server"
+  server.port:
+    default: 18705
+    description: "The bind port for the listening server"
   server.certificate:
     description: "A PEM-formatted certificate for the server."
   server.private_key:
