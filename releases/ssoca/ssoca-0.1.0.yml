@@ -1,0 +1,19 @@
+name: ssoca
+version: 0.1.0
+commit_hash: "7993173"
+uncommitted_changes: false
+jobs:
+- name: ssoca
+  version: 4493816a42bf31d5230b214baa52ed8317042335
+  fingerprint: 4493816a42bf31d5230b214baa52ed8317042335
+  sha1: a521a13edda29bacd9d59b93c5916467b5ab6cae
+packages:
+- name: ssoca
+  version: 0663ec3ba0b5e8674fa4b009d9fe465e54cdd4ff
+  fingerprint: 0663ec3ba0b5e8674fa4b009d9fe465e54cdd4ff
+  sha1: 7c00b4e5ee63ec5c86ae54c989a4434ed915c566
+  dependencies: []
+license:
+  version: c37578b1a37e53eb93133c9b40438a592c135ff4
+  fingerprint: c37578b1a37e53eb93133c9b40438a592c135ff4
+  sha1: 93097353dafee1d730c6686a548eac72b614f6b6
