@@ -1,8 +1,10 @@
 ---
+# bosh deploy src/bosh-lite-allinone/deployment.yml --vars-file tmp/allinone.ops.yml --vars-store tmp/allinone.vars.yml
 name: ssoca
 releases:
   - name: ssoca
-    version: latest
+    version: create
+    url: file://.
   # https://github.com/dpb587/ssh-conf-bosh-release
   - name: ssh-conf
     version: latest
@@ -32,7 +34,8 @@ instance_groups:
           type: ((ssoca_auth_type))
           options: ((ssoca_auth_options))
         certauths:
-        - type: memory
+        - name: default
+          type: memory
           options:
             certificate: ((ca.certificate))
             private_key: ((ca.private_key))
@@ -41,6 +44,9 @@ instance_groups:
           require:
           - authenticated: ~
           options:
+            certauth: default
+            principals:
+            - vcap
             target:
               host: ssoca.bosh-lite.com
               user: vcap
@@ -48,6 +54,7 @@ instance_groups:
           require:
           - authenticated: ~
           options:
+            certauth: default
             profile: |
               client
               dev tun
