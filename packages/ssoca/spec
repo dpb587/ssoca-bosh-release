@@ -1,6 +1,7 @@
 ---
 name: ssoca
+dependencies:
+- ssoca-golang
 files:
-- golang/*
 - ssoca/**/*
 - ssoca/*

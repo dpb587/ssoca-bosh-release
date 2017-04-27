@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -eu
+
+export GOROOT="/var/vcap/packages/ssoca-golang"
+export PATH="$GOROOT/bin:$PATH"
+
+mkdir -p $BOSH_INSTALL_TARGET/bin
+go build -o "$BOSH_INSTALL_TARGET/bin/tls-verify" ssoca-openvpn-verify.go
