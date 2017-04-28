@@ -1,0 +1,6 @@
+name: ssoca-openvpn-verify
+packages:
+- ssoca-openvpn-verify
+templates:
+  bin/pre-start: bin/pre-start
+properties: {}

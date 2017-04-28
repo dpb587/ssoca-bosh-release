@@ -2,11 +2,7 @@
 
 set -eu
 
-( cd golang
-  tar -xzf *.tar.gz --strip-components=1
-)
-
-export GOROOT="$PWD/golang"
+export GOROOT="/var/vcap/packages/ssoca-golang"
 export PATH="$GOROOT/bin:$PATH"
 export GOPATH="$PWD/gopath"
 

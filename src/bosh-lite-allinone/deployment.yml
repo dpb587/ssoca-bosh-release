@@ -5,12 +5,13 @@ releases:
   - name: ssoca
     version: create
     url: file://.
-  # https://github.com/dpb587/ssh-conf-bosh-release
+    # url: https://github.com/dpb587/ssh-conf-bosh-release
   - name: ssh-conf
     version: latest
-  # https://github.com/dpb587/openvpn-bosh-release
+    # url: https://github.com/dpb587/ssh-conf-bosh-release
   - name: openvpn
     version: latest
+    # url: https://github.com/dpb587/openvpn-bosh-release
 instance_groups:
   - name: allinone
     jobs:
@@ -55,6 +56,7 @@ instance_groups:
           - authenticated: ~
           options:
             certauth: default
+            validity: 24h
             profile: |
               client
               dev tun
@@ -92,6 +94,10 @@ instance_groups:
             9yJ2f8I1x8EW3p+CmWhHcmoNyxxlfRHIsZ+82+BIessN99pSxCbjWvhggntFLRwC
             fcrq5wk9ei7dzYjZHSPHqvhmmZgWKJZYQwIBAg==
             -----END DH PARAMETERS-----
+          extra_config: |
+            script-security 2
+            tls-verify "/var/vcap/packages/ssoca-openvpn-verify/bin/tls-verify 2m"
+            tls-export-cert /var/vcap/data/ssoca-openvpn-verify/certs
           iptables:
           - POSTROUTING -t nat -s 172.31.172.0/24 -d 10.244.0.0/16 -j MASQUERADE
           local: 0.0.0.0
@@ -101,6 +107,8 @@ instance_groups:
           server: 172.31.172.0 255.255.255.0
           server_crt: ((openvpn.certificate))
           server_key: ((openvpn.private_key))
+    - name: ssoca-openvpn-verify
+      release: ssoca
     instances: 1
     vm_type: default
     stemcell: default
