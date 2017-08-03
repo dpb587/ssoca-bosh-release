@@ -1,0 +1,35 @@
+name: ssoca
+version: 0.5.0
+commit_hash: 9f58e8c
+uncommitted_changes: false
+jobs:
+- name: ssoca
+  version: 4493816a42bf31d5230b214baa52ed8317042335
+  fingerprint: 4493816a42bf31d5230b214baa52ed8317042335
+  sha1: a521a13edda29bacd9d59b93c5916467b5ab6cae
+- name: ssoca-openvpn-verify
+  version: 22fb70b3f6013f13c2dde680f340d461adbecabb
+  fingerprint: 22fb70b3f6013f13c2dde680f340d461adbecabb
+  sha1: 3b111927019a14dd610f01c8920ab92f49aeee8c
+packages:
+- name: ssoca
+  version: 0d84520eede8533996934546632a7d679c8000bd
+  fingerprint: 0d84520eede8533996934546632a7d679c8000bd
+  sha1: 49d5376a830c214b71f6c1f3be013dbb8ae0abb4
+  dependencies:
+  - ssoca-golang
+- name: ssoca-golang
+  version: 499a55b3bba00a8058e7a5bfda404487ed904881
+  fingerprint: 499a55b3bba00a8058e7a5bfda404487ed904881
+  sha1: 0d77c33160208b39d7282a0277ffd0945ac7fe62
+  dependencies: []
+- name: ssoca-openvpn-verify
+  version: 2fda1e9b6aefaca0ab37b6c1db726b0f9f3e714c
+  fingerprint: 2fda1e9b6aefaca0ab37b6c1db726b0f9f3e714c
+  sha1: 7744b233c423d7f0c46f26a67b3a982f0fd59c2c
+  dependencies:
+  - ssoca-golang
+license:
+  version: c37578b1a37e53eb93133c9b40438a592c135ff4
+  fingerprint: c37578b1a37e53eb93133c9b40438a592c135ff4
+  sha1: 93097353dafee1d730c6686a548eac72b614f6b6
