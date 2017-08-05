@@ -6,6 +6,10 @@ templates:
   etc/server.conf.erb: etc/server.conf
   etc/server.crt.erb: etc/server.crt
   etc/server.key.erb: etc/server.key
+consumes:
+- name: openvpn
+  type: openvpn
+  optional: true
 properties:
   env.banner:
     default: ""
@@ -65,6 +69,7 @@ properties:
           -----END RSA PRIVATE KEY-----
   services:
     description: "An array of signing services and their configurations."
+    default: []
     example:
     - type: ssh
       options:
@@ -74,6 +79,16 @@ properties:
       require:
       - remote_ip: { within: 192.0.2.0/24 }
       - scope: { present: example/admin }
+  openvpn_service_link.require:
+    description: "An array of authentication requirements for the openvpn service (only applies when using the openvpn link)"
+    default:
+    - authenticated: ~
+  openvpn_service_link.options.certauth:
+    description: "The certificate authority used for signing by the openvpn service (only applies when using the openvpn link)"
+    default: default
+  openvpn_service_link.options.validity:
+    description: "The validity of certificates signed by the openvpn service (only applies when using the openvpn link)"
+    default: 12h
   enable_ui:
     default: true
     description: "True to enable a simple browser landing page for users."

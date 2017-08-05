@@ -27,6 +27,62 @@ config = {
   'services' => p('services'),
 }
 
+if_link('openvpn') do |openvpn|
+  if config['services'].any? { |service| service['type'] == 'openvpn' && (!service.has_key?('name') || service['name'] == 'openvpn' ) }
+    raise "Cannot use 'openvpn' link when the 'services' property is already configuring a service named 'openvpn'."
+  end
+
+  service = {
+    'name' => 'openvpn',
+    'type' => 'openvpn',
+    'require' => p('openvpn_service_link.require'),
+    'options' => {
+      'certauth' => p('openvpn_service_link.options.certauth'),
+      'validity' => p('openvpn_service_link.options.validity'),
+      'profile' => [
+        'client',
+        'dev tun',
+        'nobind',
+        'resolv-retry infinite',
+        'persist-key',
+        'persist-tun',
+        'verb 3',
+        'mute 20',
+        'mute-replay-warnings',
+        "cipher #{openvpn.p('cipher')}",
+        "keysize #{openvpn.p('keysize')}",
+        'tls-client',
+        'remote-random',
+        'remote-cert-tls server',
+      ],
+    },
+  }
+
+  openvpn.instances.each do | remote |
+    service['options']['profile'].push "remote #{remote.address} #{openvpn.p('port')} #{openvpn.p('protocol')}"
+  end
+
+  openvpn.if_p('tls_cipher') do | v |
+    service['options']['profile'].push "tls-cipher #{v}"
+  end
+
+  openvpn.if_p('tls_version_min') do | v |
+    service['options']['profile'].push "tls-version-min #{v}"
+  end
+
+  openvpn.if_p('tls_crypt') do | v |
+    service['options']['profile'].push "<tls-crypt>", v, "</tls-crypt>"
+  end
+
+  openvpn.if_p('extra_client_configs') do | v |
+    service['options']['profile'].push *v
+  end
+
+  service['options']['profile'] = service['options']['profile'].join("\n")
+
+  config['services'].push service
+end
+
 if p('enable_ui')
   config['services'].push({
     'name' => 'ui',
