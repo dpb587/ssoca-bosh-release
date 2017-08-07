@@ -1,7 +1,7 @@
 name: ssoca
+final_name: ssoca
 blobstore:
   provider: s3
   options:
     bucket_name: dpb587-ssoca-bosh-release-us-east-1
     region: us-east-1
-
