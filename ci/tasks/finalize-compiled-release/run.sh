@@ -53,6 +53,6 @@ meta4 file-upload --metalink="$metalink_path" --file="$tarball_nice" "$tarball_r
 # commit compiled release
 #
 
-git add -A compiled_releases
+git add -A releases
 
 git commit -m "Finalize compiled release ($stemcell)"
