@@ -1,0 +1,20 @@
+---
+platform: "linux"
+image_resource:
+  type: "docker-image"
+  source:
+    repository: "dpb587/openvpn-bosh-release"
+    tag: "ci-bosh-develop"
+inputs:
+  - name: "repo"
+  - name: "compiled-release"
+outputs:
+  - name: "repo"
+    path: "updated-repo"
+run:
+  path: "repo/ci/tasks/finalize-compiled-release/run.sh"
+params:
+  blobstore_s3_access_key_id: ~
+  blobstore_s3_secret_access_key: ~
+  git_user_email: ~
+  git_user_name: ~
