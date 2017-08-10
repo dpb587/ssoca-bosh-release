@@ -1,4 +1,3 @@
-name: ssoca
 final_name: ssoca
 blobstore:
   provider: s3
