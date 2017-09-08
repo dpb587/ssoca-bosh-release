@@ -2,13 +2,13 @@
 
 set -eu
 
-export GOROOT="/var/vcap/packages/ssoca-golang"
-export PATH="$GOROOT/bin:$PATH"
-export GOPATH="$PWD/gopath"
-
 mkdir -p gopath/src/github.com/dpb587
 mv ssoca gopath/src/github.com/dpb587/ssoca
-cd gopath/src/github.com/dpb587/ssoca
+cd gopath
+
+source /var/vcap/packages/golang-1.8-linux/bosh/compile.env
+
+cd src/github.com/dpb587/ssoca
 
 bin/build "$( grep -A1 Version service/env/service.go | tail -n1 | awk '{ print $2 }' | tr -d '"' )"
 

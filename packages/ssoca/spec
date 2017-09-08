@@ -1,7 +1,7 @@
 ---
 name: ssoca
 dependencies:
-- ssoca-golang
+- golang-1.8-linux
 files:
 - ssoca/**/*
 - ssoca/*
