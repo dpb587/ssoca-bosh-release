@@ -1,6 +1,7 @@
 name: ssoca
 packages:
 - ssoca
+- ssoca-clients
 templates:
   bin/control: bin/control
   etc/server.conf.erb: etc/server.conf
