@@ -30,7 +30,7 @@ case $1 in
       --pidfile "$PIDFILE" \
       --exec /bin/bash \
       --start \
-      -- -c "exec /var/vcap/packages/ssoca/bin/ssoca-server \
+      -- -c "exec /var/vcap/packages/ssoca/bin/ssoca \
         /var/vcap/jobs/ssoca/etc/server.conf \
         >> \"$LOGDIR/stdout.log\" \
         2>> \"$LOGDIR/stderr.log\" \

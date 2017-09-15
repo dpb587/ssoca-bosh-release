@@ -2,23 +2,18 @@
 
 set -eu
 
-export GOROOT="/var/vcap/packages/ssoca-golang"
-export PATH="$GOROOT/bin:$PATH"
-export GOPATH="$PWD/gopath"
-
 mkdir -p gopath/src/github.com/dpb587
 mv ssoca gopath/src/github.com/dpb587/ssoca
-cd gopath/src/github.com/dpb587/ssoca
+cd gopath
 
-bin/build "$( grep -A1 Version service/env/service.go | tail -n1 | awk '{ print $2 }' | tr -d '"' )"
+source /var/vcap/packages/golang-1.8-linux/bosh/compile.env
 
-# only keep the linux-amd64 server binary
-ls tmp/ssoca-server-* | grep -v linux-amd64 | xargs rm
-mv tmp/ssoca-server-* tmp/ssoca-server
+cd src/github.com/dpb587/ssoca
 
-# save the binaries
+cli_list=server bin/build "$( grep -A1 Version service/env/service.go | tail -n1 | awk '{ print $2 }' | tr -d '"' )"
+
 mkdir $BOSH_INSTALL_TARGET/bin
-mv tmp/* $BOSH_INSTALL_TARGET/bin
+mv tmp/ssoca-server-*-linux-amd64 $BOSH_INSTALL_TARGET/bin/ssoca
 
 # save the ui
 cp -r server/ui $BOSH_INSTALL_TARGET/ui
