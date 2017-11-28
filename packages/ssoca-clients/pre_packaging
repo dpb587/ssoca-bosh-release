@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set +x
+
+# if we're using precompiled binaries, verify it's the version we expect
+if [[ "" == "$( find ssoca-clients -name ssoca-client-* -depth 1 )" ]]; then
+  exit
+fi
+
+version=$( grep ^ssoca_client_version $RELEASE_DIR/jobs/ssoca/templates/etc/server.conf.erb | sed -E "s/.+'([^']+)'.+/\1/" )
+
+if find ssoca-clients -name ssoca-client-* -depth 1 | grep -qv "ssoca-client-$version" ; then
+  echo "Unrecognized versions of ssoca-clients are present (expected $version)" >&2
+  exit 1
+fi
