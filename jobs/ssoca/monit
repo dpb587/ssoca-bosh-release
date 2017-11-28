@@ -1,4 +1,4 @@
-check process ssoca with pidfile /var/vcap/sys/run/ssoca/ssoca.pid
+check process ssoca with pidfile /var/vcap/sys/run/bpm/ssoca/ssoca.pid
   group vcap
-  start program = "/var/vcap/jobs/ssoca/bin/control start"
-  stop program = "/var/vcap/jobs/ssoca/bin/control stop"
+  start program "/var/vcap/jobs/bpm/bin/bpm start ssoca"
+  stop program "/var/vcap/jobs/bpm/bin/bpm stop ssoca"

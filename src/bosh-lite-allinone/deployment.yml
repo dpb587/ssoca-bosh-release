@@ -1,7 +1,15 @@
 ---
-# bosh deploy src/bosh-lite-allinone/deployment.yml --vars-file tmp/allinone.ops.yml --vars-store tmp/allinone.vars.yml
+# bosh deploy --recreate src/bosh-lite-allinone/deployment.yml --vars-file tmp/allinone.ops.yml --vars-store tmp/allinone.vars.yml
 name: ssoca
 releases:
+  - name: bpm
+    version: "0.2.0"
+    url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.2.0
+    sha1: f2bd126b17b3591160f501d88d79ccf0aba1ae54
+  - name: networking
+    version: "9"
+    url: http://bosh.io/d/github.com/cloudfoundry/networking-release?v=9
+    sha1: 9b5f9d27917c3754e492470ac6c9af80d62963db
   - name: ssoca
     version: create
     url: file://.
@@ -15,6 +23,8 @@ releases:
 instance_groups:
   - name: allinone
     jobs:
+    - name: bpm
+      release: bpm
     - name: ssoca
       release: ssoca
       properties:
@@ -51,29 +61,6 @@ instance_groups:
             target:
               host: ssoca.bosh-lite.com
               user: vcap
-        - type: openvpn
-          require:
-          - authenticated: ~
-          options:
-            certauth: default
-            validity: 24h
-            profile: |
-              client
-              dev tun
-              proto tcp
-              remote ssoca.bosh-lite.com 443
-              comp-lzo
-              resolv-retry infinite
-              nobind
-              persist-key
-              persist-tun
-              mute-replay-warnings
-              remote-cert-tls server
-              verb 3
-              mute 20
-              tls-client
-              cipher BF-CBC
-              keysize 256
     - name: sshd_settings
       release: ssh-conf
       properties:
@@ -83,8 +70,6 @@ instance_groups:
     - name: openvpn
       release: openvpn
       properties:
-        openvpn:
-          ca_crt: ((ca.certificate))
           dh_pem: |
             -----BEGIN DH PARAMETERS-----
             MIIBCAKCAQEA/oih/YXvkf13npOIF5LW170/V5j4R20NjL/IzgdZUYMlsQtm5zMZ
@@ -94,21 +79,25 @@ instance_groups:
             9yJ2f8I1x8EW3p+CmWhHcmoNyxxlfRHIsZ+82+BIessN99pSxCbjWvhggntFLRwC
             fcrq5wk9ei7dzYjZHSPHqvhmmZgWKJZYQwIBAg==
             -----END DH PARAMETERS-----
-          extra_config: |
-            script-security 2
-            tls-verify "/var/vcap/packages/ssoca-openvpn-verify/bin/tls-verify 2m"
-            tls-export-cert /var/vcap/data/ssoca-openvpn-verify/certs
-          iptables:
-          - POSTROUTING -t nat -s 172.31.172.0/24 -d 10.244.0.0/16 -j MASQUERADE
+          extra_configs:
+          - script-security 2
+          - tls-verify "/var/vcap/packages/ssoca-openvpn-verify/bin/tls-verify 2m"
+          - tls-export-cert /var/vcap/data/ssoca-openvpn-verify/certs
           local: 0.0.0.0
           port: 443
           push_routes:
           - 10.244.0.0 255.255.0.0
           server: 172.31.172.0 255.255.255.0
-          server_crt: ((openvpn.certificate))
-          server_key: ((openvpn.private_key))
+          tls_server: ((openvpn))
     - name: ssoca-openvpn-verify
       release: ssoca
+    - name: iptables
+      release: networking
+      properties:
+        iptables:
+          nat:
+            POSTROUTING:
+            - -s 172.31.172.0/24 -d 10.244.0.0/16 -j MASQUERADE
     instances: 1
     vm_type: default
     stemcell: default

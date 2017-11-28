@@ -1,0 +1,5 @@
+#!/bin/bash -eu
+
+# until umask
+chown root:vcap /var/vcap/jobs/ssoca/etc/*
+chmod 440 /var/vcap/jobs/ssoca/etc/*

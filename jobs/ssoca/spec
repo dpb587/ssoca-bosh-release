@@ -3,7 +3,9 @@ packages:
 - ssoca
 - ssoca-clients
 templates:
-  bin/control: bin/control
+  bin/exec: bin/exec
+  bin/pre-start: bin/pre-start
+  config/bpm.yml: config/bpm.yml
   etc/server.conf.erb: etc/server.conf
   etc/server.crt.erb: etc/server.crt
   etc/server.key.erb: etc/server.key

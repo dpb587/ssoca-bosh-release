@@ -1,0 +1,3 @@
+processes:
+- name: ssoca
+  executable: /var/vcap/jobs/ssoca/bin/exec

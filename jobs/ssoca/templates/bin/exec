@@ -1,0 +1,4 @@
+#!/bin/bash -eu
+
+exec /var/vcap/packages/ssoca/bin/ssoca \
+  /var/vcap/jobs/ssoca/etc/server.conf
