@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <file name="ssoca-0.7.1-on-ubuntu-trusty-stemcell-3468.11">
+    <hash type="md5">0b665858b50e12b06c91e7b686f1adbf</hash>
+    <hash type="sha-1">c71bce9f3b5d6af190f2b4073ea0e5aff44521ff</hash>
+    <hash type="sha-256">661357c69df8ef4492c528147a8bfcf6a30d95f005d8e157beea136237fd4145</hash>
+    <hash type="sha-512">99060e70bb2e7a582d21868928a379476cbd06e5ac17cd419830b0aaa3d86db5afb1f3877c75ad1bdfc3f6600be8cb60d6820e8712c2007553dc3bb7f832c942</hash>
+    <size>104830604</size>
+    <url>https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/compiled_releases/ssoca/ssoca-0.7.1-on-ubuntu-trusty-stemcell-3468.11-compiled-1.20171205071442.0.tgz</url>
+    <version>0.7.1</version>
+  </file>
+  <generator>metalink.dpb587.github.io/0.0.0</generator>
+  <published>2017-12-05T07:16:52Z</published>
+</metalink>
