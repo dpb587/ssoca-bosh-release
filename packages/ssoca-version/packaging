@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -eu
+
+(
+  version_file="ssoca-version/version"
+
+  if [ -e "$version_file" ]; then
+    cat "$version_file"
+  else
+    echo 0.0.0
+  fi
+) > $BOSH_INSTALL_TARGET/version

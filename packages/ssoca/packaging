@@ -2,6 +2,8 @@
 
 set -eu
 
+version=$( cat /var/vcap/packages/ssoca-version/version )
+
 mkdir -p gopath/src/github.com/dpb587
 mv ssoca gopath/src/github.com/dpb587/ssoca
 cd gopath
@@ -10,7 +12,7 @@ source /var/vcap/packages/golang-1.8-linux/bosh/compile.env
 
 cd src/github.com/dpb587/ssoca
 
-cli_list=server bin/build "$( grep -A1 Version service/env/service.go | tail -n1 | awk '{ print $2 }' | tr -d '"' )"
+cli_list=server bin/build "$version"
 
 mkdir $BOSH_INSTALL_TARGET/bin
 mv tmp/ssoca-server-*-linux-amd64 $BOSH_INSTALL_TARGET/bin/ssoca
