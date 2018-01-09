@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set +x
+set +eu
 
 # if we're using precompiled binaries, verify it's the version we expect
 if [[ "" == "$( find ssoca-clients -name ssoca-client-* -depth 1 )" ]]; then

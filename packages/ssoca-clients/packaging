@@ -8,6 +8,8 @@ if [[ "" != "$( ls ssoca-clients )" ]]; then
   exit
 fi
 
+version=$( cat /var/vcap/packages/ssoca-version/version )
+
 mkdir -p gopath/src/github.com/dpb587
 mv ssoca gopath/src/github.com/dpb587/ssoca
 cd gopath
@@ -16,6 +18,6 @@ source /var/vcap/packages/golang-1.8-linux/bosh/compile.env
 
 cd src/github.com/dpb587/ssoca
 
-cli_list=client bin/build "$( grep -A1 Version service/env/service.go | tail -n1 | awk '{ print $2 }' | tr -d '"' )"
+cli_list=client bin/build "$version"
 
 mv tmp/ssoca-client-* $BOSH_INSTALL_TARGET/
