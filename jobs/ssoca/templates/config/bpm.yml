@@ -1,3 +1,15 @@
-processes:
-- name: ssoca
-  executable: /var/vcap/jobs/ssoca/bin/exec
+<%=
+
+bpm = {
+  'processes' => [
+    {
+      'name' => 'ssoca',
+      'executable' => '/var/vcap/jobs/ssoca/bin/exec',
+      'capabilities' => p('server.port') < 1024 ? ['NET_BIND_SERVICE'] : [],
+    },
+  ],
+}
+
+JSON.pretty_generate(bpm)
+
+%>
