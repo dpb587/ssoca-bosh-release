@@ -4,3 +4,4 @@ set -eu
 
 mkdir -p /var/vcap/data/ssoca-openvpn-verify/certs
 chmod 777 /var/vcap/data/ssoca-openvpn-verify/certs
+chmod 755 /var/vcap/data/ssoca-openvpn-verify
