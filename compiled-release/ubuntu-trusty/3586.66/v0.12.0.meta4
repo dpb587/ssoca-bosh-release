@@ -1,0 +1,12 @@
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <file name="ssoca-0.12.0-on-ubuntu-trusty-stemcell-3586.66.tgz">
+    <hash type="sha-512">9bf34be087cdd564dbb4ea53903d7030418e95630ca90843b8ca96e5ae9dc10789683f5674204f96609d908379f556d3d2863d750192828ed9ffef4c2d4c3d62</hash>
+    <hash type="sha-256">f35211af04b218f8f0954cdc68fd916db00300e703e3891f27822701d8ad3d9f</hash>
+    <hash type="sha-1">746fa6cd9fb180c3854d4f4766c5732e4e686bca</hash>
+    <hash type="md5">fd06bbe3b650ebe776ae5fde6e61b997</hash>
+    <size>112804697</size>
+    <url>https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/compiled-release/746fa6cd9fb180c3854d4f4766c5732e4e686bca</url>
+    <version>0.12.0</version>
+  </file>
+  <generator>boshua/contextualosmetalinkrepository</generator>
+</metalink>
