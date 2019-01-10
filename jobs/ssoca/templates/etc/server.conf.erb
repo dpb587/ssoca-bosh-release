@@ -32,6 +32,10 @@ if_p('server.certificate', 'server.private_key') do
   config['server']['private_key_path'] = '/var/vcap/jobs/ssoca/etc/server.key'
 end
 
+if_p('server.trusted_proxies') do |v|
+  config['server']['trusted_proxies'] = v
+end
+
 if_link('openvpn') do |openvpn|
   if config['services'].any? { |service| service['type'] == 'openvpn' && (!service.has_key?('name') || service['name'] == 'openvpn' ) }
     raise "Cannot use 'openvpn' link when the 'services' property is already configuring a service named 'openvpn'."

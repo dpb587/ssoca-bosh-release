@@ -47,6 +47,12 @@ properties:
   server.redirect.auth_failure:
     default: ""
     description: "A redirect URL for users who have just failed to authenticate."
+  server.trusted_proxies:
+    default: []
+    description: "A list of proxy IPs or CIDRs to trust when detecting remote client IPs."
+    example:
+    - 127.0.0.1/8
+    - "::1"
   auth.type:
     description: "The authentication method to use (github, google, http, uaa)"
     example: github
