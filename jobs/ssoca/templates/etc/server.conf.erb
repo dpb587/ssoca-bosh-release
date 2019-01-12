@@ -33,7 +33,12 @@ if_p('server.certificate', 'server.private_key') do
 end
 
 if_p('server.trusted_proxies') do |v|
-  config['server']['trusted_proxies'] = v
+  config['server']['trusted_proxies'] = v.map do |v|
+    # IPv6 with a colon prefix looks like a symbol to the YAML parser
+    # see https://github.com/cloudfoundry/bosh/issues/2113
+    v = ":#{v}" if v.is_a?(Symbol)
+    v
+  end
 end
 
 if_link('openvpn') do |openvpn|
