@@ -1,11 +1,28 @@
 <%=
 
+services_with_volumes = []
+
+p('services').each do |service|
+  if service['type'] == 'download' then
+    path = []
+    service['options']['glob'].split("/").each do |segment|
+      break if segment.include? "*"
+      path << segment
+    end
+
+    services_with_volumes << path.join("/") if path != ""
+  elsif service['type'] == 'docroot' then
+    services_with_volumes << service['options']['path']
+  end
+end
+
 bpm = {
   'processes' => [
     {
       'name' => 'ssoca',
       'executable' => '/var/vcap/jobs/ssoca/bin/exec',
       'capabilities' => p('server.port') < 1024 ? ['NET_BIND_SERVICE'] : [],
+      'additional_volumes' => services_with_volumes.map{ |path| { 'path' => path } },
     },
   ],
 }
