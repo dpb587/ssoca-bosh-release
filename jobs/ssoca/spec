@@ -53,6 +53,12 @@ properties:
     example:
     - 127.0.0.1/8
     - "::1"
+  server.robotstxt:
+    default: ~
+    description: "A custom robots.txt document for the server to provide."
+    example: |
+      User-agent: *
+      Disallow:
   auth.type:
     description: "The authentication method to use (github, google, http, uaa)"
     example: github

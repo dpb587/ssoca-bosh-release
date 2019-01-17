@@ -6,7 +6,18 @@ describe 'ssoca' do
   let(:release) { Bosh::Template::Test::ReleaseDir.new(File.join(File.dirname(__FILE__), '../..')) }
   let(:job) { release.job('ssoca') }
   let(:properties) { minimum_properties }
-  let(:minimum_properties) { {} }
+  let(:minimum_properties) do
+    {
+      'env' => {
+        'url' => 'http://localhost:18705',
+      },
+      'auth' => {
+        'type' => 'ignored',
+        'options' => {},
+      },
+      'certauths' => [],
+    }
+  end
 
   describe 'config/bpm.yml' do
     let(:template) { job.template('config/bpm.yml') }
@@ -77,6 +88,25 @@ describe 'ssoca' do
             'path' => '/var/vcap/packages/my-custom-downloads',
           },
         ])
+      end
+    end
+  end
+
+  describe 'etc/server.conf' do
+    let(:template) { job.template('etc/server.conf') }
+    let(:parsed_rendered_template) { JSON.parse(template.render(properties)) }
+
+    context 'customized robots.txt' do
+      let(:properties) {
+        minimum_properties.merge({
+          'server' => {
+            'robotstxt' => 'humans.txt',
+          },
+        })
+      }
+
+      it 'is configurable' do
+        expect(parsed_rendered_template['server']['robotstxt']).to eq('humans.txt')
       end
     end
   end

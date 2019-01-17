@@ -41,6 +41,10 @@ if_p('server.trusted_proxies') do |v|
   end
 end
 
+if_p('server.robotstxt') do |v|
+  config['server']['robotstxt'] = v
+end
+
 if_link('openvpn') do |openvpn|
   if config['services'].any? { |service| service['type'] == 'openvpn' && (!service.has_key?('name') || service['name'] == 'openvpn' ) }
     raise "Cannot use 'openvpn' link when the 'services' property is already configuring a service named 'openvpn'."
