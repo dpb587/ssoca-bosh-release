@@ -8,7 +8,7 @@ mkdir -p gopath/src/github.com/dpb587
 mv ssoca gopath/src/github.com/dpb587/ssoca
 cd gopath
 
-source /var/vcap/packages/golang-1.8-linux/bosh/compile.env
+source /var/vcap/packages/go/bosh/env
 
 cd src/github.com/dpb587/ssoca
 

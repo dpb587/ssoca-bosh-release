@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -eu
+
+tar -xzf go/*.tar.gz -C "$BOSH_INSTALL_TARGET" --strip-components=1
+
+mkdir "$BOSH_INSTALL_TARGET/bosh"
+
+cat <<"EOF" > "$BOSH_INSTALL_TARGET/bosh/env"
+export GOROOT=/var/vcap/packages/go
+export GOPATH="$PWD"
+export PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
+EOF

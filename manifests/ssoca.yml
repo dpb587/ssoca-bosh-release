@@ -1,0 +1,93 @@
+---
+name: ssoca
+releases:
+- name: bpm
+  version: "0.2.0"
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.2.0
+  sha1: f2bd126b17b3591160f501d88d79ccf0aba1ae54
+- name: ssoca
+  version: latest
+instance_groups:
+- name: allinone
+  jobs:
+  - name: bpm
+    release: bpm
+  - name: ssoca
+    release: ssoca
+    properties:
+      env:
+        name: "simple-ssoca-example"
+        title: "a custom title"
+        banner: "a custom environment banner message"
+        url: "https://((ssoca_public_hostname)):18705"
+      server:
+        certificate: ((ssoca.certificate))
+        private_key: ((ssoca.private_key))
+      auth:
+        type: http
+        options:
+          users:
+          - username: admin
+            password: admin
+            groups:
+            - admin-group
+          - username: guest
+            password: guest
+            groups:
+            - guest-group
+      certauths:
+      - name: default
+        type: memory
+        options:
+          certificate: ((ca.certificate))
+          private_key: ((ca.private_key))
+      services:
+      - type: ssh
+        require:
+        - authenticated: ~
+        options:
+          certauth: default
+          principals:
+          - '{{ .Token.ID }}'
+  instances: 1
+  vm_type: default
+  stemcell: default
+  networks:
+  - name: default
+    static_ips:
+    - 10.245.0.34
+  azs:
+  - z1
+stemcells:
+- alias: default
+  os: ubuntu-xenial
+  version: latest
+update:
+  canaries: 1
+  max_in_flight: 1
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+variables:
+- name: ca
+  options:
+    is_ca: true
+    common_name: ssoca-ca
+  type: certificate
+- name: openvpn
+  options:
+    ca: ca
+    common_name: openvpn
+    alternative_names:
+    - openvpn.example.com
+    extended_key_usage:
+    - server_auth
+  type: certificate
+- name: ssoca
+  options:
+    ca: ca
+    common_name: ssoca
+    alternative_names:
+    - ((ssoca_public_hostname))
+    extended_key_usage:
+    - server_auth
+  type: certificate

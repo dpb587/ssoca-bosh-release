@@ -1,0 +1,62 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: bosh/main-bosh-docker
+inputs:
+- name: repo
+- name: release
+- name: artifacts
+outputs:
+- name: release
+  path: release-output
+run:
+  path: bash
+  args:
+  - -c
+  - |
+    #
+    # in theory, this should support dev versions and dirty tarballs, but this
+    # isn't really tested; consider improving at some point and have it fallback
+    # to the tarball it originally received if it fails
+    #
+
+    set -euo pipefail
+
+    task_dir=$PWD
+
+    # one of these paths should work
+    tar -xzf release/*.tgz ./release.MF release.MF || true
+
+    commit_hash=$( bosh interpolate --path=/commit_hash release.MF )
+    release_version=$( bosh interpolate --path=/version release.MF )
+
+    cd ../repo
+
+    # this will fail if it was dirty due to + suffix
+    git checkout "$commit_hash"
+
+    client_version=$(
+      grep ^ssoca_client_version jobs/ssoca/templates/etc/server.conf.erb \
+        | awk '{ print $3 }' \
+        | tr -d "'"
+    )
+
+    cd src/ssoca-clients
+
+    meta4-repo filter "file://$task_dir/artifacts/*" --filter fileversion:"$ssoca_version" -n1 \
+      | sed -E 's#^</?repository.+##' \
+      > metalink.meta4
+
+    for file in $( meta4 files | grep ssoca-client- ) ; do
+      meta4 file-download --file="$file" "$file"
+    done
+
+    cd ../..
+
+    echo -n "$client_version" > src/ssoca-version/version
+
+    bosh create-release \
+      --version="release_version" \
+      --tarball="$task_dir/release-output/release.tgz"

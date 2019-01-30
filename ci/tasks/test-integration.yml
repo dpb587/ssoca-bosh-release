@@ -1,0 +1,65 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: bosh/main-bosh-docker
+# privileged: true
+inputs:
+- name: repo
+- name: stemcell
+  optional: true
+run:
+  path: bash
+  args:
+  - -c
+  - |
+    set -euo pipefail
+
+    start-bosh
+    source /tmp/local-bosh/director/env
+    export BOSH_DEPLOYMENT=ssoca
+
+    if [ -e stemcell/*.tgz ]; then
+      stemcell_path=$( echo stemcell/*.tgz )
+    else
+      # TODO reminder: this will break after bosh-deployment switches to sha256
+      checksum=$( bosh int --path=/resource_pools/0/stemcell/sha1 /tmp/local-bosh/director/bosh-director.yml )
+      stemcell_path=$( find ~/.bosh/downloads -type f | xargs -n1 shasum | grep $checksum | awk '{ print $2 }' )
+    fi
+
+    bosh upload-stemcell "$stemcell_path"
+    stemcell_os=$( tar -Oxzf "$stemcell_path" stemcell.MF | grep '^operating_system: ' | awk '{ print $2 }' )
+
+    cd repo
+
+    ip=10.245.0.34
+
+    # pre_packaging scripts don't work with /releases/*/version=create
+    bosh create-release --tarball=/tmp/release.tgz --force
+    bosh upload-release /tmp/release.tgz
+    rm /tmp/release.tgz
+
+    bosh -n deploy manifests/ssoca.yml \
+      --ops-file manifests/ops/override-stemcell.yml \
+      --var stemcell_os=$stemcell_os \
+      --var stemcell_version=latest \
+      --var ssoca_public_hostname=$ip \
+      --vars-store /tmp/ssoca-vars.yml
+
+    clientFileName=$( curl -k "https://$ip:18705/ssoca-client/list" | jq -r '.files | map(.name)[]' | grep linux-amd64 )
+    curl -ko /usr/local/bin/ssoca "https://$ip:18705/ssoca-client/get?name=$clientFileName"
+    chmod +x /usr/local/bin/ssoca
+
+    ssoca -e ssoca env set --ca-cert <( bosh int --path=/ssoca/ca /tmp/ssoca-vars.yml ) "https://$ip:18705"
+    ssoca -e ssoca env info | grep "a custom environment banner message"
+    ssoca -e ssoca env services | grep ^ssoca-client
+    ssoca -e ssoca env services | grep ^ui
+
+    # cleanup
+
+    bosh -n delete-deployment
+    bosh -n clean-up --all
+    bosh delete-env "/tmp/local-bosh/director/bosh-director.yml" \
+      --vars-store="/tmp/local-bosh/director/creds.yml" \
+      --state="/tmp/local-bosh/director/state.json"

@@ -1,0 +1,9 @@
+---
+- path: /stemcells/alias=default
+  type: remove
+- path: /stemcells/-
+  type: replace
+  value:
+    alias: default
+    os: ((stemcell_os))
+    version: ((stemcell_version))

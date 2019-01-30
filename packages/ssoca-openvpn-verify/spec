@@ -1,6 +1,6 @@
 ---
 name: ssoca-openvpn-verify
 dependencies:
-- golang-1.8-linux
+- go
 files:
 - ssoca-openvpn-verify.go

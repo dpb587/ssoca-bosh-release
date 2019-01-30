@@ -2,7 +2,7 @@
 
 set -eu
 
-source /var/vcap/packages/golang-1.8-linux/bosh/compile.env
+source /var/vcap/packages/go/bosh/env
 
 mkdir -p $BOSH_INSTALL_TARGET/bin
 go build -o "$BOSH_INSTALL_TARGET/bin/tls-verify" ssoca-openvpn-verify.go
