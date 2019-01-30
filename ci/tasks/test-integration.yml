@@ -8,6 +8,7 @@ image_resource:
 inputs:
 - name: repo
 - name: release
+  optional: true
 - name: stemcell
   optional: true
 run:
@@ -38,7 +39,12 @@ run:
 
     ip=10.245.0.34
 
-    bosh upload-release $task_dir/release/*.tgz
+    if [ -e $task_dir/release ]; then
+      bosh upload-release $task_dir/release/*.tgz
+    else
+      bosh create-release --force
+      bosh upload-release
+    fi
 
     bosh -n deploy manifests/ssoca.yml \
       --ops-file manifests/ops/override-stemcell.yml \
