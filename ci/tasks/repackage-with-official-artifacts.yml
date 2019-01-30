@@ -37,8 +37,9 @@ run:
 
     cd repo
 
-    # this will fail if it was dirty due to + suffix
-    git checkout --recurse-submodules "$commit_hash"
+    # reminder: this will fail if it was dirty due to + suffix
+    git checkout "$commit_hash"
+    git submodule update
 
     client_version=$(
       grep ^ssoca_client_version jobs/ssoca/templates/etc/server.conf.erb \
