@@ -26,13 +26,16 @@ run:
 
     task_dir=$PWD
 
-    # one of these paths should work
-    tar -xzf release/*.tgz ./release.MF release.MF || true
+    # output should mirror the input as closely as possible
+    cp -rp release/* release-output/
 
+    release_filename=$( cd release ; echo *.tgz )
+
+    tar -xzf "release/$filename" release.MF
     commit_hash=$( bosh interpolate --path=/commit_hash release.MF )
     release_version=$( bosh interpolate --path=/version release.MF )
 
-    cd ../repo
+    cd repo
 
     # this will fail if it was dirty due to + suffix
     git checkout "$commit_hash"
@@ -45,18 +48,28 @@ run:
 
     cd src/ssoca-clients
 
-    meta4-repo filter "file://$task_dir/artifacts/*" --filter fileversion:"$ssoca_version" -n1 \
+    curl -fLo /usr/local/bin/meta4-repo https://github.com/dpb587/metalink/releases/download/v0.2.0/meta4-repo-0.2.0-linux-amd64
+    echo "7d2242f986afba2e2ae94261d50f26e25d0f6c650779375358548b245d1e8dc9  /usr/local/bin/meta4-repo" | sha256sum -c -
+    chmod +x /usr/local/bin/meta4-repo
+
+    meta4-repo filter "file://$task_dir/artifacts/*" --filter fileversion:"$client_version" -n1 \
       | sed -E 's#^</?repository.+##' \
       > metalink.meta4
+
+    curl -fLo /usr/local/bin/meta4 https://github.com/dpb587/metalink/releases/download/v0.2.0/meta4-0.2.0-linux-amd64
+    echo "81a592eaf647358563f296aced845ac60d9061a45b30b852d1c3f3674720fe19  /usr/local/bin/meta4" | sha256sum -c -
+    chmod +x /usr/local/bin/meta4
 
     for file in $( meta4 files | grep ssoca-client- ) ; do
       meta4 file-download --file="$file" "$file"
     done
+
+    rm metalink.meta4
 
     cd ../..
 
     echo -n "$client_version" > src/ssoca-version/version
 
     bosh create-release \
-      --version="release_version" \
-      --tarball="$task_dir/release-output/release.tgz"
+      --version="$release_version" \
+      --tarball="$task_dir/release-output/$release_filename"

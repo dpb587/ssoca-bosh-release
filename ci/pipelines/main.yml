@@ -14,8 +14,10 @@ groups:
 jobs:
 - name: create-alpha-release
   plan:
-  - get: repo
-    trigger: true
+  - aggregate:
+    - get: repo
+      trigger: true
+    - get: artifacts
   - task: create-release
     file: repo/ci/tasks/create-dev-release-tarball.yml
   - task: repackage-with-official-artifacts
@@ -155,6 +157,12 @@ resources:
     uri: git@github.com:dpb587/ssoca-bosh-release.git
     branch: master
     private_key: ((ci_deploy_ssh_key))
+- name: artifacts
+  type: git
+  source:
+    uri: git@github.com:dpb587/ssoca.git
+    branch: artifacts
+    private_key: ((ci_deploy_ssh_key))
 - name: version
   type: semver
   source:
@@ -221,6 +229,10 @@ resource_types:
   type: docker-image
   source:
     repository: dpb587/dynamic-metalink-resource
+- name: github-status
+  type: docker-image
+  source:
+    repository: dpb587/github-status-resource
 - name: metalink-repository
   type: docker-image
   source:
