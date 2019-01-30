@@ -38,11 +38,10 @@ jobs:
     - get: release
       resource: alpha-bosh-release-tarball
       trigger: true
-      passed:
+      passed: &test-integration-ubuntu-xenial
       - create-alpha-release
     - get: repo
-      passed:
-      - create-alpha-release
+      passed: *test-integration-ubuntu-xenial
     - get: stemcell
       resource: ubuntu-xenial-stemcell
   - put: ubuntu-xenial-integration-github-status
@@ -68,11 +67,10 @@ jobs:
     - get: release
       resource: alpha-bosh-release-tarball
       trigger: true
-      passed:
+      passed: &promote-to-beta-passed
       - test-integration-ubuntu-xenial
     - get: repo
-      passed:
-      - test-integration-ubuntu-xenial
+      passed: *promote-to-beta-passed
   - put: beta-bosh-release-tarball
     params:
       metalink: release/.resource/metalink.meta4
@@ -83,11 +81,10 @@ jobs:
   - aggregate:
     - get: release
       resource: beta-bosh-release-tarball
-      passed:
+      passed: &promote-to-rc-passed
       - promote-to-beta
     - get: repo
-      passed:
-      - promote-to-beta
+      passed: *promote-to-rc-passed
   - put: rc-bosh-release-tarball
     params:
       metalink: release/.resource/metalink.meta4
@@ -211,7 +208,7 @@ resources:
     access_token: ((github_access_token))
     branch: master
     context: ci/integration/ubuntu-xenial
-    repository: dpb587/openvpn-bosh-release
+    repository: dpb587/ssoca-bosh-release
 - name: ubuntu-xenial-stemcell
   type: bosh-io-stemcell
   source:
@@ -233,6 +230,7 @@ resource_types:
   type: docker-image
   source:
     repository: dpb587/github-status-resource
+    tag: master
 - name: metalink-repository
   type: docker-image
   source:
@@ -259,7 +257,7 @@ bosh_release_blobs_upgrader:
   - serial
   before_upload:
     task: test
-    file: repo/ci/tasks/test-deploy.yml
+    file: repo/ci/tasks/test-integration.yml
     privileged: true
   after_upload:
     put: repo

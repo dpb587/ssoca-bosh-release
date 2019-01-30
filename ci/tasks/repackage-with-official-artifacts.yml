@@ -38,7 +38,7 @@ run:
     cd repo
 
     # this will fail if it was dirty due to + suffix
-    git checkout "$commit_hash"
+    git checkout --recurse-submodules "$commit_hash"
 
     client_version=$(
       grep ^ssoca_client_version jobs/ssoca/templates/etc/server.conf.erb \
@@ -61,6 +61,7 @@ run:
     chmod +x /usr/local/bin/meta4
 
     for file in $( meta4 files | grep ssoca-client- ) ; do
+      echo "$file"
       meta4 file-download --file="$file" "$file"
     done
 
