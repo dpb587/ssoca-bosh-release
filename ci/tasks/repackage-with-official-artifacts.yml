@@ -31,7 +31,7 @@ run:
 
     release_filename=$( cd release ; echo *.tgz )
 
-    tar -xzf "release/$filename" release.MF
+    tar -xzf "release/$release_filename" release.MF
     commit_hash=$( bosh interpolate --path=/commit_hash release.MF )
     release_version=$( bosh interpolate --path=/version release.MF )
 
