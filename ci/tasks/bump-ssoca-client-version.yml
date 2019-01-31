@@ -1,0 +1,53 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: dpb587/bosh-release-resource
+inputs:
+- name: repo
+- name: ssoca-clients
+outputs:
+- name: repo
+  path: updated-repo
+run:
+  path: bash
+  args:
+  - -c
+  - |
+    set -euo pipefail
+
+    task_dir=$PWD
+
+    export GIT_COMMITTER_NAME="Concourse"
+    export GIT_COMMITTER_EMAIL="concourse.ci@localhost"
+
+    git config --global user.email "${git_user_email:-ci@localhost}"
+    git config --global user.name "${git_user_name:-CI Bot}"
+
+    cp -rp repo/. updated-repo
+
+    cd updated-repo/
+
+    git submodule update --init
+
+    ssoca_client=$( echo $task_dir/ssoca-clients/ssoca-client-*-linux-amd64 )
+    chmod +x "$ssoca_client"
+
+    ssoca_client_semver=$( "$ssoca_client" version --semver )
+    ssoca_client_commit=$( "$ssoca_client" version --commit )
+
+    cd src/ssoca
+    git checkout "$ssoca_client_commit"
+    cd ../..
+    git add src/ssoca
+
+    sed -Ei "s#^ssoca_client_version = .+#ssoca_client_version = '$ssoca_client_semver'#" jobs/ssoca/templates/etc/server.conf.erb
+    git add jobs/ssoca/templates/etc/server.conf.erb
+
+    if git diff --staged --exit-code --quiet ; then
+      # no changes pending
+      exit
+    else
+      git commit -m "Upgrade ssoca to $ssoca_client_semver"
+    fi

@@ -5,6 +5,7 @@ groups:
   - promote-to-beta
   - promote-to-rc
   - publish
+  - upgrade-ssoca-version
   name: all
 - jobs:
   - bump-major
@@ -12,6 +13,18 @@ groups:
   - bump-patch
   name: ci-state
 jobs:
+- name: upgrade-ssoca-version
+  plan:
+  - aggregate:
+    - get: ssoca-clients
+      resource: ssoca-final-artifacts
+      trigger: true
+    - get: repo
+  - task: bump-ssoca-client-version
+    file: repo/ci/tasks/bump-ssoca-client-version.yml
+  - put: repo
+    params:
+      repository: repo
 - name: create-alpha-release
   plan:
   - aggregate:
@@ -160,6 +173,12 @@ resources:
     uri: git@github.com:dpb587/ssoca.git
     branch: artifacts
     private_key: ((ci_deploy_ssh_key))
+- name: ssoca-final-artifacts
+  type: metalink-repository
+  source:
+    uri: git+https://github.com/dpb587/ssoca.git//ssoca-final#artifacts
+    include_files:
+    - ssoca-client-*-linux-amd64
 - name: version
   type: semver
   source:
