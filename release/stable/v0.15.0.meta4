@@ -1,0 +1,13 @@
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <file name="ssoca-0.15.0.tgz">
+    <hash type="sha-512">6efdda2747d384a0d9a0a96c8b6de0b0d5e16b6cb21761618ee89ba5f4007fb5b9272b45bf1805352abdf6db215b4b72eaedc547c8aef8ae58838f16199135d8</hash>
+    <hash type="sha-256">24937fcbe9af65312cf77845faf81f9af96ebe0a5eb61660adc69068d6d9c234</hash>
+    <hash type="sha-1">eb40e4072194824ee820c52cedf65946d184fcfd</hash>
+    <hash type="md5">9ce69c3f7076cd0b1716f258ea0b7b28</hash>
+    <size>165026695</size>
+    <url>https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/0.15.0/ssoca-0.15.0.tgz</url>
+    <version>0.15.0</version>
+  </file>
+  <generator>metalink-repository-resource/0.0.0</generator>
+  <published>2019-01-31T04:13:49.357412255Z</published>
+</metalink>
