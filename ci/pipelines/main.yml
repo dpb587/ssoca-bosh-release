@@ -185,23 +185,29 @@ resources:
 - name: alpha-bosh-release-tarball
   type: metalink-repository
   source:
-    << : *release_artifacts
+    <<: *release_artifacts
     uri: git+ssh://git@github.com:dpb587/ssoca-bosh-release.git//release/alpha#artifacts
+    mirror_files:
+    - <<: *release_artifacts_mirror_env
+      destination: s3://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/dev/{{.SHA1}}
 - name: beta-bosh-release-tarball
   type: metalink-repository
   source:
-    << : *release_artifacts
+    <<: *release_artifacts
     uri: git+ssh://git@github.com:dpb587/ssoca-bosh-release.git//release/beta#artifacts
 - name: rc-bosh-release-tarball
   type: metalink-repository
   source:
-    << : *release_artifacts
+    <<: *release_artifacts
     uri: git+ssh://git@github.com:dpb587/ssoca-bosh-release.git//release/rc#artifacts
 - name: bosh-release-tarball
   type: metalink-repository
   source:
-    << : *release_artifacts
+    <<: *release_artifacts
     uri: git+ssh://git@github.com:dpb587/ssoca-bosh-release.git//release/stable#artifacts
+    mirror_files:
+    - <<: *release_artifacts_mirror_env
+      destination: s3://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/{{.Version}}/{{.Name}}
 - name: ubuntu-xenial-integration-github-status
   type: github-status
   source:
@@ -240,12 +246,11 @@ resource_types:
   source:
     repository: cfcommunity/slack-notification-resource
 shared:
+  release_artifacts_mirror_env: &release_artifacts_mirror_env
+    env:
+      AWS_ACCESS_KEY_ID: ((ci_access_key))
+      AWS_SECRET_ACCESS_KEY: ((ci_secret_key))
   release_artifacts: &release_artifacts
-    mirror_files:
-    - destination: s3://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/{{.SHA1}}
-      env:
-        AWS_ACCESS_KEY_ID: ((ci_access_key))
-        AWS_SECRET_ACCESS_KEY: ((ci_secret_key))
     options:
       private_key: ((ci_deploy_ssh_key))
 bosh_release_blobs_upgrader:
