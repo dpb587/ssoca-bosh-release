@@ -1,5 +1,6 @@
 groups:
 - jobs:
+  - build-docs
   - create-alpha-release
   - test-integration-ubuntu-xenial
   - promote-to-beta
@@ -13,6 +14,24 @@ groups:
   - bump-patch
   name: ci-state
 jobs:
+- name: build-docs
+  serial: true
+  plan:
+  - aggregate:
+    - get: repo
+      trigger: true
+    - get: artifacts
+      resource: repo-artifacts
+      trigger: true
+    - get: hugo-site
+      resource: bosh-release-site
+      trigger: true
+  - task: build-docs
+    file: repo/ci/tasks/build-docs/task.yml
+  - put: repo-gh-pages
+    params:
+      repository: public
+      force: true
 - name: upgrade-ssoca-version
   plan:
   - aggregate:
@@ -167,6 +186,18 @@ resources:
     uri: git@github.com:dpb587/ssoca-bosh-release.git
     branch: master
     private_key: ((ci_deploy_ssh_key))
+- name: "repo-artifacts"
+  type: "git"
+  source:
+    uri: git@github.com:dpb587/ssoca-bosh-release.git
+    branch: artifacts
+    private_key: ((ci_deploy_ssh_key))
+- name: "repo-gh-pages"
+  type: "git"
+  source:
+    uri: git@github.com:dpb587/ssoca-bosh-release.git
+    branch: gh-pages
+    private_key: ((ci_deploy_ssh_key))
 - name: artifacts
   type: git
   source:
@@ -238,6 +269,10 @@ resources:
   type: bosh-io-stemcell
   source:
     name: bosh-warden-boshlite-ubuntu-xenial-go_agent
+- name: "bosh-release-site"
+  type: "git"
+  source:
+    uri: https://github.com/dpb587/bosh-release-site.git
 - name: slack-alert
   type: slack-notification
   source:

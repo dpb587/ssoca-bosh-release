@@ -1,0 +1,97 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: dpb587/bosh-release-docs
+inputs:
+- name: repo
+- name: artifacts
+- name: hugo-site
+outputs:
+- name: public
+run:
+  path: bash
+  args:
+  - -c
+  - |
+    set -eu
+
+    task_dir=$PWD
+    reporoot=$task_dir/repo
+    artifactroot=$task_dir/artifacts/release/stable
+    siteroot=$task_dir/hugo-site
+
+    cd "$reporoot"
+
+    # pull history to include releases which came from other branches
+    git remote add complete $( git remote get-url origin | sed 's#git@github.com:#https://github.com/#' )
+    git fetch complete
+
+    cd "$siteroot"
+
+    mkdir -p static/img
+    wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
+
+    ./bin/generate-metalink-artifacts-data.sh "file://$artifactroot"
+    ./bin/generate-release-content.sh "$reporoot"
+    ./bin/generate-repo-tags-data.sh "$reporoot"
+
+    latest_version=$( cd content/releases ; ls | grep ^v | sed 's/^v//' | $( which gsort || echo "sort" ) -rV | head -n1 )
+
+    echo "<script>self.location=\"{{< relref \"/releases/v$latest_version/_index.md\" >}}\"</script>" \
+      > content/_index.md
+
+    #
+    # remap where docs can be edited
+    #
+
+    for doc in $( cd content ; find jobs packages -name "v$latest_version.md" ); do
+      echo "$doc: $( dirname "$doc" )/spec" >> data/contributeLinks.yml
+    done
+    for v in $( cd content ; find releases -mindepth 2 -maxdepth 2 -name _index.md | cut -d/ -f2 | sed 's/^v//' ); do
+      echo "releases/v$v/_index.md: releases/ssoca/ssoca-$v.md" >> data/contributeLinks.yml
+    done
+
+    #
+    # amend our hugo configuration
+    #
+
+    github=https://github.com/dpb587/ssoca-bosh-release
+    cat > config.local.yml <<EOF
+    title: ssoca-bosh-release
+    baseURL: https://dpb587.github.io/ssoca-bosh-release
+    googleAnalytics: UA-37464314-3
+    params:
+      ThemeBrandIcon: /img/dpb587.jpg
+      ThemeNavItems:
+      - title: releases
+        url: /releases/
+      - title: github
+        url: "$github"
+      ThemeNavBadges:
+      - title: BOSH
+        color: "#fff"
+        img: /img/cff-bosh.png
+        url: https://bosh.io/
+      RequireContributeLinkMap: true
+      CopyrightNotice: |
+        [ssoca BOSH Release]($github) by [Danny Berger](https://dpb587.me/).
+      GitRepo: "$github"
+      GitEditPath: blob/master
+      GitCommitPath: commit
+      boshReleaseName: ssoca
+      boshReleaseVersion: "$latest_version"
+    EOF
+
+    hugo --config config.yml,config.local.yml
+
+    cd $task_dir/public
+
+    mv $siteroot/public/* ./
+
+    git config --global user.email "${git_user_email:-ci@localhost}"
+    git config --global user.name "${git_user_name:-CI Bot}"
+    git init
+    git add .
+    git commit -m 'build docs'
