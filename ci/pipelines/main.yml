@@ -27,7 +27,7 @@ jobs:
       resource: bosh-release-site
       trigger: true
   - task: build-docs
-    file: repo/ci/tasks/build-docs/task.yml
+    file: repo/ci/tasks/build-docs.yml
   - put: repo-gh-pages
     params:
       repository: public
