@@ -24,7 +24,6 @@ jobs:
       resource: repo-artifacts
       trigger: true
     - get: hugo-site
-      resource: bosh-release-site
       trigger: true
   - task: build-docs
     file: repo/ci/tasks/build-docs.yml
@@ -269,10 +268,10 @@ resources:
   type: bosh-io-stemcell
   source:
     name: bosh-warden-boshlite-ubuntu-xenial-go_agent
-- name: "bosh-release-site"
+- name: "hugo-site"
   type: "git"
   source:
-    uri: https://github.com/dpb587/bosh-release-site.git
+    uri: https://github.com/dpb587/hugo-balmy-site.git
 - name: slack-alert
   type: slack-notification
   source:
