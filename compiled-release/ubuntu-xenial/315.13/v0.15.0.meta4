@@ -1,11 +1,11 @@
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
   <file name="ssoca-0.15.0-on-ubuntu-xenial-stemcell-315.13.tgz">
-    <hash type="sha-512">80bb22b75c781ac32ed818eb037bdf1aea5d5b9a8ed41af9bd615efca523ee1b3247dd4c4d99c49e0091f14718ce87b5b89e74006f1e4c10385fd1a2596f2385</hash>
-    <hash type="sha-256">efd883e5005c87d541a910e8a35d5a6773bcf5feca55379e06279322d50f0c7e</hash>
-    <hash type="sha-1">c7a3e5e46a5f72ef213fb8e3f38841e38b8b2254</hash>
-    <hash type="md5">59620a3283b362ac84dc0df1cb928005</hash>
-    <size>165339103</size>
-    <url>https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/compiled-release/c7a3e5e46a5f72ef213fb8e3f38841e38b8b2254</url>
+    <hash type="sha-512">78c030bd1f27955da4b252b2cd4678592537e0e593fd545cfc0c1bdefdf80a5f86040ecf963f1a2d42c05f6a8b6a28ce4270c4759f0447ab48b26e6981c32f6a</hash>
+    <hash type="sha-256">4a8e8bdb6a4c764db26456ca9c6cd8dac18a824691a085a3016d3690c0846349</hash>
+    <hash type="sha-1">640803c0f238b6fd46d80672d9661a11c48ef122</hash>
+    <hash type="md5">480db1091afb10ba5a0faa7adfb70e14</hash>
+    <size>165338561</size>
+    <url>https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/compiled-release/640803c0f238b6fd46d80672d9661a11c48ef122</url>
     <version>0.15.0</version>
   </file>
   <generator>boshua/contextualosmetalinkrepository</generator>
