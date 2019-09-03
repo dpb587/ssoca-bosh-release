@@ -68,7 +68,6 @@ if_link('openvpn') do |openvpn|
         'mute 20',
         'mute-replay-warnings',
         "cipher #{openvpn.p('cipher')}",
-        "keysize #{openvpn.p('keysize')}",
         'tls-client',
         'remote-random',
         'remote-cert-tls server',
@@ -78,6 +77,10 @@ if_link('openvpn') do |openvpn|
 
   openvpn.instances.each do | remote |
     service['options']['profile'].push "remote #{remote.address} #{openvpn.p('port')} #{openvpn.p('protocol')}"
+  end
+
+  openvpn.if_p('keysize') do | v |
+    service['options']['profile'].push "keysize #{v}"
   end
 
   openvpn.if_p('tls_cipher') do | v |
