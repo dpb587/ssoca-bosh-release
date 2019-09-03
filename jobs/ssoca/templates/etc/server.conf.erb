@@ -1,6 +1,6 @@
 <%=
 
-ssoca_client_version = '0.16.0'
+ssoca_client_version = '0.17.0'
 
 config = {
   'env' => {
@@ -9,6 +9,8 @@ config = {
     'title' => p('env.title'),
     'url' => p('env.url'),
     'metadata' => p('env.metadata'),
+    'support_older_clients' => true,
+    'default_auth_service' => 'auth',
   },
   'server' => {
     'host' => p('server.host'),
@@ -19,13 +21,15 @@ config = {
       'auth_success' => p('server.redirect.auth_success'),
     },
   },
-  'auth' => {
-    'type' => p('auth.type'),
-    'options' => p('auth.options'),
-  },
   'certauths' => p('certauths'),
   'services' => p('services'),
 }
+
+config['services'].push({
+  'name' => 'auth',
+  'type' => "#{p('auth.type')}_authn",
+  'options' => p('auth.options'),
+})
 
 if_p('server.certificate', 'server.private_key') do
   config['server']['certificate_path'] = '/var/vcap/jobs/ssoca/etc/server.crt'
@@ -111,6 +115,9 @@ if p('enable_ui')
     'options' => {
       'path' => '/var/vcap/packages/ssoca/ui',
     },
+    'require' => [
+      { 'public' => nil },
+    ],
   })
 
   if config['server']['redirect']['root'] == ''
@@ -137,6 +144,9 @@ if p('enable_client_downloads')
       },
       'glob' => '/var/vcap/packages/ssoca-clients/ssoca-client-*',
     },
+    'require' => [
+      { 'public' => nil },
+    ],
   })
 end
 
