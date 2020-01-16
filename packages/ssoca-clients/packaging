@@ -15,6 +15,7 @@ mv ssoca gopath/src/github.com/dpb587/ssoca
 cd gopath
 
 source /var/vcap/packages/go/bosh/env
+export GOFLAGS=-mod=vendor
 
 cd src/github.com/dpb587/ssoca
 
