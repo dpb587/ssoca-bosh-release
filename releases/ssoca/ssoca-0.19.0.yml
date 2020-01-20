@@ -1,0 +1,48 @@
+name: ssoca
+version: 0.19.0
+commit_hash: f7b3cb2
+uncommitted_changes: false
+jobs:
+- name: ssoca
+  version: 27dacc3571d322cf91f9905b1479faa3fe4976ec9f6e309558ea65200719b5ad
+  fingerprint: 27dacc3571d322cf91f9905b1479faa3fe4976ec9f6e309558ea65200719b5ad
+  sha1: sha256:b8f3328b22c5af11c8ef46e1fcda604fcbcbbb482e95eaa8a73a6271d5a1e7a5
+- name: ssoca-openvpn-verify
+  version: f680f0d5da3254c574d42e920b04b99094c161bc22c33e45ee38f8e45796c251
+  fingerprint: f680f0d5da3254c574d42e920b04b99094c161bc22c33e45ee38f8e45796c251
+  sha1: sha256:5b39888ab03923c2655cc9bcc914cb0d5308f2070891a5cb0742494494ad96cd
+packages:
+- name: go
+  version: fe91f90111b253703e1d913934359980bd70c663003d9d10848a77b54c7726c0
+  fingerprint: fe91f90111b253703e1d913934359980bd70c663003d9d10848a77b54c7726c0
+  sha1: sha256:04496b0db98fd06a9eea8c96fa31ca647351734a42aeba272be8182c97c23133
+  dependencies: []
+- name: ssoca
+  version: 28c2e020de101e79658043ebf596b0a228f1f423d76212aaadad128561e92c14
+  fingerprint: 28c2e020de101e79658043ebf596b0a228f1f423d76212aaadad128561e92c14
+  sha1: sha256:70d7b69b8bd492abb71870d78213d6725ef5844e860c4fedd0b5839708ab3d9e
+  dependencies:
+  - go
+  - ssoca-version
+- name: ssoca-clients
+  version: 7e15c028fa047681ce23914ff394acc65c140c2a09f365f592f753f8cc6e1c8b
+  fingerprint: 7e15c028fa047681ce23914ff394acc65c140c2a09f365f592f753f8cc6e1c8b
+  sha1: sha256:3422a2c9fd966a6650796e49fbc96f5809378743f7f6343b224e4eace13b8382
+  dependencies:
+  - go
+  - ssoca-version
+- name: ssoca-openvpn-verify
+  version: 20ab1b50b63ef34173f58228b7e308a37237fc8f7f6819d13342d8cfa3b1d72c
+  fingerprint: 20ab1b50b63ef34173f58228b7e308a37237fc8f7f6819d13342d8cfa3b1d72c
+  sha1: sha256:ee63deb73db3c3e697c67ada0d79944dcd9376bacbb3f0cc31507394826cae39
+  dependencies:
+  - go
+- name: ssoca-version
+  version: ca3f69c8867259b96e31f8c0bc04e28a3676b689869a4f9d96d4806310ff492a
+  fingerprint: ca3f69c8867259b96e31f8c0bc04e28a3676b689869a4f9d96d4806310ff492a
+  sha1: sha256:282e847eed57b476c01d7ca222c8d318824f0f899432fa7275acfe7a3684b6a8
+  dependencies: []
+license:
+  version: 86033cda964a5eebf6496c21cd21af7b2e68dabdf85aafc3a02d75f82185841b
+  fingerprint: 86033cda964a5eebf6496c21cd21af7b2e68dabdf85aafc3a02d75f82185841b
+  sha1: sha256:d3e6f3a7fd623cbcfdc15e7e0892855d47abc94bd09f80ff7924e9f3c2a0a984
