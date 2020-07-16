@@ -51,7 +51,7 @@ run:
 
     git fetch
 
-    if ! git rev-parse "v${client_version}" | grep "$( git rev-parse HEAD )" ; then
+    if ! git rev-parse "v${client_version}^{commit}" | grep -q "$( git rev-parse HEAD )" ; then
       # they don't exist; probably not yet released, so continue with source
       echo 'WARN: expected server version not found in source repository'
 
