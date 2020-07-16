@@ -57,6 +57,8 @@ run:
     curl -ko /usr/local/bin/ssoca "https://$ip:18705/ssoca-client/get?name=$clientFileName"
     chmod +x /usr/local/bin/ssoca
 
+    ssoca version --debug
+
     ssoca -e ssoca env set --ca-cert <( bosh int --path=/ssoca/ca /tmp/ssoca-vars.yml ) "https://$ip:18705"
     ssoca -e ssoca env info | grep "a custom environment banner message"
     ssoca -e ssoca env services | grep ^ssoca-client
