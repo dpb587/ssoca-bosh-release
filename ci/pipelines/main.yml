@@ -17,7 +17,7 @@ jobs:
 - name: build-docs
   serial: true
   plan:
-  - aggregate:
+  - in_parallel:
     - get: repo
       trigger: true
     - get: artifacts
@@ -33,7 +33,7 @@ jobs:
       force: true
 - name: upgrade-ssoca-version
   plan:
-  - aggregate:
+  - in_parallel:
     - get: ssoca-clients
       resource: ssoca-final-artifacts
       trigger: true
@@ -45,7 +45,7 @@ jobs:
       repository: repo
 - name: create-alpha-release
   plan:
-  - aggregate:
+  - in_parallel:
     - get: repo
       trigger: true
     - get: artifacts
@@ -65,7 +65,7 @@ jobs:
   serial_groups:
   - highload
   plan:
-  - aggregate:
+  - in_parallel:
     - get: release
       resource: alpha-bosh-release-tarball
       trigger: true
@@ -94,7 +94,7 @@ jobs:
         state: success
 - name: promote-to-beta
   plan:
-  - aggregate:
+  - in_parallel:
     - get: release
       resource: alpha-bosh-release-tarball
       trigger: true
@@ -109,13 +109,15 @@ jobs:
       skip_download: true
 - name: promote-to-rc
   plan:
-  - aggregate:
+  - in_parallel:
     - get: release
       resource: beta-bosh-release-tarball
       passed: &promote-to-rc-passed
       - promote-to-beta
     - get: repo
       passed: *promote-to-rc-passed
+  - task: require-official-artifacts
+    file: repo/ci/tasks/require-official-artifacts.yml
   - put: rc-bosh-release-tarball
     params:
       metalink: release/.resource/metalink.meta4
