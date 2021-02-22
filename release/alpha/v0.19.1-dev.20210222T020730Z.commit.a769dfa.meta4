@@ -1,0 +1,13 @@
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <file name="ssoca-0.19.1-dev.20210222T020730Z.commit.a769dfa.tgz">
+    <hash type="sha-512">3a48f7369794b843281c1faafb6ca6e25b6491e8b810636631f121731ea95eb0d6a9b769a1d3d749e9b39eef7bb9180cda1dd05f2abd2e74da0d9007b70f40aa</hash>
+    <hash type="sha-256">99cab5e3fd3d8d9f77e05968f93ed401d087f67ddf7a10934363353bef4d4c9d</hash>
+    <hash type="sha-1">e6e6df2c0bea32b49967e7f35389bee430289dde</hash>
+    <hash type="md5">1bdee8ece4c880d6d3ae1b37ad5098ab</hash>
+    <size>160318420</size>
+    <url>https://s3-external-1.amazonaws.com/dpb587-ssoca-bosh-release-us-east-1/artifacts/release/dev/e6e6df2c0bea32b49967e7f35389bee430289dde</url>
+    <version>0.19.1-dev.20210222T020730Z.commit.a769dfa</version>
+  </file>
+  <generator>metalink-repository-resource/0.0.0</generator>
+  <published>2021-02-22T02:13:26.312699434Z</published>
+</metalink>
